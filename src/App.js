@@ -5,6 +5,7 @@ import Subtotal from './component/Subtotal'
 import PickupSavings from './component/PickupSavings'
 import TaxesFess from './component/TaxesFees'
 import EstimatedTotal from './component/EstimatedTotal'
+import ItemDetails from './component/ItemDetails'
 
 const Grid = styled.div`
 width: 350px;
@@ -38,6 +39,7 @@ class App extends React.Component{
           <TaxesFess taxes={this.state.taxes.toFixed(2)} />
           <hr/>
           <EstimatedTotal price={this.state.estimatedTotal.toFixed(2)} />
+          <ItemDetails />
         </Grid>
       </Wrapper>
     )
