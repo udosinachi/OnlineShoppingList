@@ -6,6 +6,7 @@ import PickupSavings from './component/PickupSavings'
 import TaxesFess from './component/TaxesFees'
 import EstimatedTotal from './component/EstimatedTotal'
 import ItemDetails from './component/ItemDetails'
+import PromoCode from './component/PromoCode'
 
 const Grid = styled.div`
 width: 350px;
@@ -22,13 +23,25 @@ class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      total: 100,
+      total: 550,
       PickupSavings: -3.50,
       taxes: 0,
       estimatedTotal: 0,
+      disabledPromoButton: false,
     }
   }
 
+  componentDidMount = () => {
+    this.setState({
+      taxes: (this.state.total + this.state.PickupSavings) * 0.0875
+    },
+      function (){
+        this.setState({
+          estimatedTotal: this.state.total + this.state.PickupSavings + this.state.taxes
+        })
+      }
+    )
+  }
 
   render(){
     return(
@@ -41,6 +54,10 @@ class App extends React.Component{
           <EstimatedTotal price={this.state.estimatedTotal.toFixed(2)} />
           <ItemDetails price={this.state.estimatedTotal.toFixed(2)}/>
           <hr/>
+          <PromoCode 
+            giveDiscount={() => this.giveDiscountHandler()}
+            isDisabled={this.state.disabledPromoButton}
+          />
         </Grid>
       </Wrapper>
     )

@@ -5,8 +5,7 @@ const Col1 = styled.div`
 
 `
 const Col2 = styled.div`
-color: red;
-font-weight: 800;
+
 `
 const Row = styled.div`
 padding-bottom: 1.5em;
