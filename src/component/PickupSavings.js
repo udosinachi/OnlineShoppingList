@@ -16,6 +16,14 @@ padding-bottom: 1.5em;
 display: flex;
 justify-content: space-between;
 `
+const P = styled.p`
+background-color: black;
+color: white;
+position: fixed;
+float: right;
+width: 18%;
+text-align: center;
+`
 
 function useHover(){
     const ref = useRef()
@@ -45,7 +53,7 @@ function PickupSavings(props){
                 <Row>
                     <Col1>
                         <Div>Pickup Savings</Div>
-                        {hovered &&<p>You can save money if you go to stores</p>}
+                        {hovered &&<P>You can save money if you go to stores</P>}
                     </Col1>
                     <Col2> {`$${props.price}`} </Col2>
                 </Row>
