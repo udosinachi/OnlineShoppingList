@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import styled from 'styled-components'
 
 const Div = styled.div`
@@ -16,17 +16,42 @@ padding-bottom: 1.5em;
 display: flex;
 justify-content: space-between;
 `
-class PickupSavings extends React.Component{
-    render(){
+
+function useHover(){
+    const ref = useRef()
+    const [hovered, setHovered] = useState(false)
+
+    const enter = () => setHovered(true)
+    const leave = () => setHovered(false)
+
+    useEffect(() => {
+        ref.current.addEventListener('mouseenter',enter)
+        ref.current.addEventListener('mouseleave',leave)
+        return() => {
+            ref.current.removeEventListener('mouseenter',enter)
+            ref.current.removeEventListener('mouseleave',leave)
+        }
+    }, [ref])
+
+    return [ref, hovered]
+}
+
+function PickupSavings(props){
+
+    const [ref, hovered] = useHover()
+
         return(
-            <Row>
-                <Col1>
-                    <Div>Pickup Savings</Div>
-                </Col1>
-                <Col2> {`$${this.props.price}`} </Col2>
-            </Row>
+            <div ref={ref}>
+                <Row>
+                    <Col1>
+                        <Div>Pickup Savings</Div>
+                        {hovered &&<p>You can save money if you go to stores</p>}
+                    </Col1>
+                    <Col2> {`$${props.price}`} </Col2>
+                </Row>
+            </div>
         )
     }
-}
+
 
 export default PickupSavings
