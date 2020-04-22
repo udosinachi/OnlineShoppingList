@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
 
+import './App.css'
+import Header from './component/Header'
 import Subtotal from './component/Subtotal'
 import PickupSavings from './component/PickupSavings'
 import TaxesFess from './component/TaxesFees'
@@ -49,11 +51,11 @@ class App extends React.Component{
   giveDiscountHandler = () => {
     if(this.props.promoCode === 'DISCOUNT'){
       this.setState({
-        estimatedTotal: this.estimatedTotal * 0.9
+        estimatedTotal: this.state.estimatedTotal * 0.9
       },
       function(){
         this.setState({
-          disablePromoButton: true
+          disabledPromoButton: true
         })
       }
       )
@@ -64,6 +66,8 @@ class App extends React.Component{
     return(
       <Wrapper>
         <Grid>
+          <Header />
+          <br/>
           <Subtotal price={this.state.total.toFixed(2)} />
           <PickupSavings price={this.state.PickupSavings.toFixed(2)} />
           <TaxesFess taxes={this.state.taxes.toFixed(2)} />
