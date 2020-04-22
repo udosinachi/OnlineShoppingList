@@ -8,6 +8,9 @@ import EstimatedTotal from './component/EstimatedTotal'
 import ItemDetails from './component/ItemDetails'
 import PromoCode from './component/PromoCode'
 
+import {connect} from 'react-redux'
+import {handleChange} from './actions/promoCodeAction'
+
 const Grid = styled.div`
 width: 350px;
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -43,6 +46,20 @@ class App extends React.Component{
     )
   }
 
+  giveDiscountHandler = () => {
+    if(this.props.promoCode === 'DISCOUNT'){
+      this.setState({
+        estimatedTotal: this.estimatedTotal * 0.9
+      },
+      function(){
+        this.setState({
+          disablePromoButton: true
+        })
+      }
+      )
+    }
+  }
+
   render(){
     return(
       <Wrapper>
@@ -64,4 +81,8 @@ class App extends React.Component{
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  promoCode: state.promoCode.value
+})
+
+export default connect(mapStateToProps, {handleChange})(App);

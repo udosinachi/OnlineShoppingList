@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import {connect} from 'react-redux'
+import {handleChange} from '../actions/promoCodeAction'
+
+
 const Button = styled.button`
 `
 const Div = styled.div`
@@ -28,9 +32,13 @@ class PromoCode extends React.Component{
         super(props)
         this.state = {
             open: false,
-            value: '',
         }
     }
+
+    handleChange = e => {
+        this.props.handleChange(e)
+    }
+
     render(){
         return(
             <div>
@@ -69,4 +77,8 @@ class PromoCode extends React.Component{
     }
 }
 
-export default PromoCode
+const mapStateToProps = state => ({
+    promoCode: state.promoCode.value
+})
+
+export default connect(mapStateToProps, {handleChange})(PromoCode)
